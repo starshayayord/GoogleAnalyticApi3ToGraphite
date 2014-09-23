@@ -13,16 +13,16 @@ $client->setApplicationName('TestProjectOauth'); // name of your app
 $client->setAssertionCredentials(
   new Google_Auth_AssertionCredentials(
 
-    '358227472029-m2hguoogseelqgs6taugf442kps36f3i@developer.gserviceaccount.com', // email you added to GA
+    $config['ga_email'], // email you added to GA
 
     array('https://www.googleapis.com/auth/analytics.readonly'),
 
-    file_get_contents('/opt/TestProjectOauth-d0338a229f85.p12')  // keyfile you downloaded
+    file_get_contents($config['key_path'])  // keyfile you downloaded
 
 ));
 
 // other settings
-$client->setClientId('358227472029-m2hguoogseelqgs6taugf442kps36f3i.apps.googleusercontent.com');// from API console
+$client->setClientId($config['ga_client_id']);// from API console
 $client->setAccessType('offline_access');  // this may be unnecessary?
 //print_r($client);
 // create service and get data
