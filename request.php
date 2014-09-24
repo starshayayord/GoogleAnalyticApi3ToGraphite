@@ -32,25 +32,29 @@ $metric_name = $config['metric_name'];
 //$service->data_ga->get($ids, $startDate, $endDate, $metrics, $optParams);
 $optParams = array(
     'dimensions' => 'rt:medium');
+foreach ($config['ga_profiles'] as $ga_profile)
+{
 
-try {
-  $results = $service->data_realtime->get(
-      $config['ga_profile'],
-      $metric_name,
-      $optParams);
-  // Success. 
-} catch (apiServiceException $e) {
-  // Handle API service exceptions.
-  $error = $e->getMessage();
-}
-$realm = $results->profileInfo['profileName'];
-$realm = str_replace('.','_',$realm);
-$result = $results->totalsForAllResults[$metric_name];
-//GRAPHITE HERE
-$piper = new GoogleAnalyticsToGraphite(
-	  $config['graphite_host'], $config['graphite_port']
+	try {
+	echo "\r\n ===== Try to get metrics for $ga_profile ===== \r\n"; 
+	 $results = $service->data_realtime->get(
+	      $ga_profile,
+	      $metric_name,
+	      $optParams);
+	  // Success. 
+	} catch (apiServiceException $e) {
+	  // Handle API service exceptions.
+	  $error = $e->getMessage();
+	}
+	$realm = $results->profileInfo['profileName'];
+	$realm = str_replace('.','_',$realm);
+	$result = $results->totalsForAllResults[$metric_name];
+	//GRAPHITE HERE
+	$piper = new GoogleAnalyticsToGraphite(
+	$config['graphite_host'], $config['graphite_port']
 	);
-$piper->pipeForGraphite($metric_name, $result, $realm);
+	$piper->pipeForGraphite($metric_name, $result, $realm);
+}
 //print_r($piper);
 //$file='/opt/data.xml';
 //$content = serialize($result);
