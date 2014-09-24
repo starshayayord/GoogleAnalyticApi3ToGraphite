@@ -27,16 +27,17 @@ $client->setAccessType('offline_access');  // this may be unnecessary?
 //print_r($client);
 // create service and get data
 $service = new Google_Service_Analytics($client);
-$metric_name = $config['metric_name'];
+//$metric_name = $config['metric_name'];
 //print_r($service);
 //$service->data_ga->get($ids, $startDate, $endDate, $metrics, $optParams);
 $optParams = array(
     'dimensions' => 'rt:medium');
 foreach ($config['ga_profiles'] as $ga_profile)
 {
-
+  foreach($config['metric_names'] as $metric_name)
+  {
 	try {
-	echo "\r\n ===== Try to get metrics for $ga_profile ===== \r\n"; 
+	echo "\r\n ===== Try to get metric $metric_name for $ga_profile ===== \r\n"; 
 	 $results = $service->data_realtime->get(
 	      $ga_profile,
 	      $metric_name,
@@ -54,6 +55,7 @@ foreach ($config['ga_profiles'] as $ga_profile)
 	$config['graphite_host'], $config['graphite_port']
 	);
 	$piper->pipeForGraphite($metric_name, $result, $realm);
+  }
 }
 //print_r($piper);
 //$file='/opt/data.xml';
