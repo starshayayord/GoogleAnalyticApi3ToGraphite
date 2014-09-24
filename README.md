@@ -1,5 +1,8 @@
 GoogleAnalyticApi3ToGraphite
 ============================
+###What is:
+This script pipes Google Analytics stats into a graphite instance.
+###How To:
 Google Analytics API V3 now supports OAuth2 tokens returned by a .p12-signed JWT request. That is, we can now use the Analytics API w/ service accounts.
 
 1.  Go to the [GAConsole](https://code.google.com/apis/console/) and create a new app.
