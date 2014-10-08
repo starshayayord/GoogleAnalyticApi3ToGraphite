@@ -1,8 +1,8 @@
 <?php
 // api dependenciesi
-define ('PATH_TO_API','/opt/ver3/google-api-php-client/src/');
-require_once(PATH_TO_API . 'Google/Client.php');
-require_once(PATH_TO_API . 'Google/Service/Analytics.php');
+//define ('PATH_TO_API','/opt/ver3/google-api-php-client/src/');
+require_once('/opt/ver3/google-api-php-client/src/Google/Client.php');
+require_once('/opt/ver3/google-api-php-client/src/Google/Service/Analytics.php');
 require __DIR__ . '/config.php';
 require __DIR__ . '/GoogleAnalyticsToGraphite.php';
 // create client object and set app name
